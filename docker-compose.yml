@@ -1,0 +1,16 @@
+# creating a volume to be able to persist data between Postgres container restarts
+volumes:
+  blog-vol:
+
+services:
+  pgsql:
+    image: postgres:latest 
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pwd # environment variable that sets the superuser password for PostgreSQL
+      POSTGRES_USER: usr # variable that will create the specified user
+      POSTGRES_DB: blog # the name of your db
+    volumes:
+      - blog-vol:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
